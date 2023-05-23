@@ -1,0 +1,5 @@
+# ninja log v5
+1	349	1684322095178313317	CMakeFiles/practica2_mpi.dir/Parking.c.o	d8e228f62277fb29
+1	349	1684322095178313317	CMakeFiles/practica2_mpi.dir/Coche.c.o	3fcd9e373e2e06e3
+349	397	1684322095226337316	CMakeFiles/practica2_mpi.dir/Camion.c.o	154ac49242386a18
+1	348	1684322095178313317	CMakeFiles/practica2_mpi.dir/main.c.o	73ba676078b95889

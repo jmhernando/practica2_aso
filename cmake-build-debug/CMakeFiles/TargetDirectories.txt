@@ -1,0 +1,3 @@
+/home/jose/Escritorio/Universidad/ASO/practica2_mpi/cmake-build-debug/CMakeFiles/practica2_mpi.dir
+/home/jose/Escritorio/Universidad/ASO/practica2_mpi/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/jose/Escritorio/Universidad/ASO/practica2_mpi/cmake-build-debug/CMakeFiles/rebuild_cache.dir
