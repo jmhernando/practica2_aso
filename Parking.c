@@ -1,100 +1,89 @@
+/*LIBRERIAS*/
+
 #include <mpi/mpi.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 
-int parking[1000][1000]; //si 0 vacio / otro lleno
+/*FUNCIONES*/
 
-void salirParking(int plantas, int plazasPorPlanta, int id); //Declaracion de la funcion
-int comprobarHueco(int tipo,int plantas,int plazasPorPlanta,int id); //Declaracion de la funcion
-void imprimir(int plantas, int plazasPorPlanta); //Declaracion de la funcion
+void vehiculoSale(int tipo_vehiculo,int id);
+int vehiculoEntra(int tipo_vehiculo,int id);
+void imprimirParking(int plantas, int plazas);
 
-int main(int argc,char **argv){
-    //Secuencia de comandos necesaria para inicializar la libreria MPI
-    int rank,size;
-    MPI_Init(&argc, &argv);
-    MPI_Comm_size(MPI_COMM_WORLD,&size);
-    MPI_Comm_rank(MPI_COMM_WORLD,&rank);
+/*VARIABLES*/
+int parking[100][100];      //Creamos el array que simulará el parking, como máximo 100 plazas y 100 plantas.
+int plazas, plantas,id_vehiculo;
 
-    //Creación y recogida del tamaño del parking por argumento
-
-    int plantas, plazasPorPlanta;
+int main(int argc, char **argv){
+    int rank, size;
+    MPI_Init(&argc, &argv); //Inicializa el entorno de MPI.
+    MPI_Comm_size(MPI_COMM_WORLD,&size);    //Obtener el tamaño total de procesos.
+    MPI_Comm_rank(MPI_COMM_WORLD,&rank);    //Obtiene el proceso actual.
 
     if(argc == 3){
-        plantas = atoi(argv[1]);
-        plazasPorPlanta = atoi(argv[2]);
+        plazas = atoi(argv[1]);
+        plantas = atoi(argv[2]);
     }else{
-        printf("Faltan argumentos!!!\n");
+        printf("No has introducido los argumentos correctamente.\n");
+        printf("La forma correcta de ejecución del programa debe ser: \n mpirun -np 1 main 'plantas' 'plazas' : -np 'N_procesos_coche' coche : -np 'N_procesos_camion' camion.\n");
+        printf("Las ' ' se omitirán.\n");
+        printf("Dónde N_procesos_coche es un número entero que representará el número de coches.\n");
+        printf("Dónde N_procesos_camion es un número entero que representará el número de camiones.\n");
+        return (1);     //Terminamos de ejecutar el programa puesto que se ha escrito mal el comando.
     }
 
-    printf("Creando parking...\n");
+    printf("Comando ejecutado correctamente. Generando simulación...\n");
 
-    //Rellenamos el parking con 0, ya que esto indica plaza vacía
-
-    for(int ii=0;ii<plantas;ii++){
-        for(int jj=0;jj<plazasPorPlanta;jj++){
-            parking[ii][jj] = 0;
+    for(int i=0;i<plantas;i++){
+        for(int j=0;j<plazas;j++){
+            parking[i][j]=0;
         }
     }
-    printf("Parking creado!\n");
-    MPI_Barrier(MPI_COMM_WORLD); //Es un punto de sincronización, cuando todos los procesos lleguen a este punto
-    //continua la ejecución.
-    MPI_Status estado;
+    printf("Se ha creado el parking.\n");
 
-    //Creamos un array que llevará la información entre los procesos
-    int mensaje[2]; //[tipo] [operacion]
-    /*
-        tipo -> 0=coche / 1=camion
-        operacion -> 0=entrada / 1=salida
-    */
+    MPI_Status process_status;      //Obtendremos información de los envíos y otros datos.
+    MPI_Barrier(MPI_COMM_WORLD);    //Flag que para al procesos hasta que TODOS los procesos lleguen a este punto.
 
-    while(1){
-        //Usamos la función recibir de la librería MPI esperando un mensaje de un vehiculo
+    char accion_vehiculo[2][10];    //Este array servirá como mensaje en el que se analizará que tipo de vehiculo
+    // y la acción que realiza (SALE, ENTRA)
 
+    int aux;
 
-        /*    &mensaje: Es el puntero al búfer donde se almacenará el mensaje recibido. En este caso, se espera que mensaje sea una variable de tipo int o un arreglo de int con espacio suficiente para almacenar 2 elementos.
+    while (1) {
+        MPI_Recv(&accion_vehiculo, 2 * 10, MPI_CHAR, MPI_ANY_SOURCE, 0, MPI_COMM_WORLD, &process_status);
+        id_vehiculo = process_status.MPI_SOURCE;
 
-    2: Es el número de elementos que se esperan recibir en el mensaje. En este caso, se espera recibir 2 elementos de tipo int.
-
-    MPI_INT: Es el tipo de datos del mensaje que se espera recibir. En este caso, el mensaje se trata como un arreglo de int.
-
-    MPI_ANY_SOURCE: Es el identificador del proceso emisor del cual se desea recibir el mensaje. En este caso, se utiliza MPI_ANY_SOURCE para indicar que se acepta el mensaje de cualquier proceso emisor.
-
-    0: Es la etiqueta o identificador del mensaje que se espera recibir. En este caso, se utiliza 0 para indicar que se acepta cualquier etiqueta.
-
-    MPI_COMM_WORLD: Es el comunicador utilizado para la comunicación entre procesos. En este caso, se utiliza MPI_COMM_WORLD, que es el comunicador por defecto que incluye todos los procesos del programa MPI.
-
-    &estado: Es el puntero a una variable MPI_Status donde se almacenará información detallada sobre el estado de la operación de recepción. Después de la llamada a MPI_Recv, se puede utilizar estado para obtener información como el identificador del proceso emisor, el tamaño del mensaje recibido y otros detalles.
-
-En resumen, la línea de código MPI_Recv(&mensaje, 2, MPI_INT, MPI_ANY_SOURCE, 0, MPI_COMM_WORLD, &estado); indica que el proceso actual espera recibir un mensaje de cualquier proceso emisor, con una etiqueta de 0, conteniendo 2 elementos de tipo int. Después de la llamada, la variable mensaje contendrá el mensaje recibido y la variable estado proporcionará información adicional sobre la operación de recepción.*/
-        MPI_Recv(&mensaje, 2, MPI_INT, MPI_ANY_SOURCE, 0, MPI_COMM_WORLD, &estado);
-        int id = estado.MPI_SOURCE;
-        if(mensaje[0]==0){ //Si es COCHE
-            if(mensaje[1]==0){//Comprobando si entra
-                //Pasamos coche como argumento
-                if(comprobarHueco(0,plantas,plazasPorPlanta,id)==-1){
-                    int temp = 0; //Indicamos al coche que no hay hueco
-                    MPI_Send(&temp, 1, MPI_INT, id, 1, MPI_COMM_WORLD); //Respondemos al coche
-                    printf("No hay hueco. El coche %d se marcha... \n",id);
-                }else{
-                    int temp = 1; //Indicamos al coche que hay hueco
-                    MPI_Send(&temp, 1, MPI_INT, id, 1, MPI_COMM_WORLD); //Respondemos al coche
+        if (strcmp(accion_vehiculo[1], "COCHE") == 0 ){         //Si lo que envia es la palabra COCHE nuestro vehículo es un coche
+            if(strcmp(accion_vehiculo[0], "ENTRA") == 0) {      //Si lo que quiere es entrar...
+                if (vehiculoEntra(0, id_vehiculo) == -1) {  //Si no hay sitio en el parking devuelve -1
+                    aux = 0;
+                    MPI_Send(&aux, 1, MPI_INT, id_vehiculo, 1, MPI_COMM_WORLD);  // Le decimos al coche que no hay sitio.
+                    printf("No hay sitio en el parking. El vehiculo con id: %d espera.", id_vehiculo);
                 }
-            }else{//Si no entra, sale
-                salirParking(plantas,plazasPorPlanta,id);
+                else{
+                    aux= 1;
+                    MPI_Send(&aux, 1, MPI_INT, id_vehiculo, 1, MPI_COMM_WORLD);  // Le decimos al coche que hay sitio.
+                }
+            }else{      //Si lo que quiere es salir
+                vehiculoSale(0,id_vehiculo);
             }
-        }else if(mensaje[0]==1){//Si es CAMION
-            if(mensaje[1]==0){//Comprobando si entra
-                if(comprobarHueco(1,plantas,plazasPorPlanta,(id + 100))==-1){
-                    int valor=0; //Indicamos al CAMION que no hay hueco
-                    MPI_Send(&valor, 1, MPI_INT, id, 2, MPI_COMM_WORLD); //Respondemos al camion
-                    printf("No hay hueco. El CAMION %d se marcha... \n",id);
-                }else{
-                    int valor = 1; //Indicamos al CAMION que hay hueco
-                    MPI_Send(&valor, 1, MPI_INT, id, 2, MPI_COMM_WORLD); //Respondemos al camion
+        }
+        //Mismo código pero para el CAMION
+        if (strcmp(accion_vehiculo[1], "CAMION") == 0 ){
+            if(strcmp(accion_vehiculo[0], "ENTRA") == 0) {
+                if (vehiculoEntra(1, id_vehiculo+100) == -1) {
+                    aux = 0;
+                    MPI_Send(&aux, 1, MPI_INT, id_vehiculo, 1, MPI_COMM_WORLD);  // Le decimos al coche que no hay sitio.
+                    printf("No hay sitio en el parking. El vehiculo con id: %d espera.", id_vehiculo+100);
                 }
-            }else{//Si no entra, sale
-                salirParking(plantas,plazasPorPlanta,(id + 100));
+                else{
+                    aux= 1;
+                    MPI_Send(&aux, 1, MPI_INT, id_vehiculo, 1, MPI_COMM_WORLD);  // Le decimos al coche que hay sitio.
+                }
+            }else{
+                vehiculoSale(1,id_vehiculo+100);
             }
         }
     }
@@ -102,44 +91,41 @@ En resumen, la línea de código MPI_Recv(&mensaje, 2, MPI_INT, MPI_ANY_SOURCE, 
     return 0;
 }
 
-//Funcion que devuelve 1 si encuentra plaza libre, ya sea para un coche o un camion
-int comprobarHueco(int tipo,int plantas,int plazasPorPlanta,int id){
-    if(tipo==0){
-        for(int ii=0;ii<plantas;ii++){
-            for(int jj=0;jj<plazasPorPlanta;jj++){
-                if(parking[ii][jj]==0){
-                    parking[ii][jj] = id;
-                    int plazasLibresHueco=0;
+int vehiculoEntra(int tipo_vehiculo, int id_vehiculo){
+    if(tipo_vehiculo==0) {
+        for (int i = 0; i < plantas; i++) {
+            for (int j = 0; j < plazas; j++) {
+                if (parking[i][j] == 0) {
+                    parking[i][j] = id_vehiculo;
+                    int plazas_libres = 0;
 
-                    for(int jj=0;jj<plazasPorPlanta;jj++){
-                        if(parking[ii][jj]==0){
-                            plazasLibresHueco++;
+                    for (int j = 0; j < plazas; j++) {
+                        if (parking[i][j] == 0) {
+                            plazas_libres++;
                         }
                     }
-
-                    printf("ENTRADA: Coche %d aparca en planta %d - plaza %d. Plazas libres en la planta: %d \n",id,ii,jj, plazasLibresHueco);
-                    imprimir(plantas,plazasPorPlanta);
-                    return 1;
+                    printf("ENTRADA: Coche %d aparca en planta %d - plaza %d. Plazas libres en la planta: %d \n",id_vehiculo, i, j, plazas_libres);
+                    imprimirParking(plantas, plazas);
+                    return 1;       //Terminamos la ejecución puesto que ya tenemos el resultado de la operación.
                 }
             }
         }
-    }else if(tipo==1){
-        for(int ii=0;ii<plantas;ii++){
-            for(int jj=0;jj<plazasPorPlanta;jj++){
-                if(parking[ii][jj]==0 && parking[ii][jj+1]==0 && jj+1<plazasPorPlanta){
-                    parking[ii][jj]=id;
-                    parking[ii][jj+1]=id;
-                    int plazasLibresHueco2=0;
+    }else{
+        for(int i=0;i<plantas;i++){
+            for(int j=0;j<plazas;j++){
+                if(j+1<plazas && parking[i][j]==0 && parking[i][j+1]==0){
+                    parking[i][j] = id_vehiculo;        //El enunciado requiere que un camión tenga el id +100
+                    parking[i][j+1] = id_vehiculo;
+                    int plazas_libres=0;
 
-                    for(int jj=0;jj<plazasPorPlanta;jj++){
-                        if(parking[ii][jj]==0){
-                            plazasLibresHueco2++;
+                    for(int j=0;j<plazas;j++){
+                        if(parking[i][j]==0){
+                            plazas_libres++;
                         }
                     }
-
-                    printf("ENTRADA: Camión %d aparca en planta %d - plaza %d. Plazas libres en la planta: %d \n",id,ii,jj, plazasLibresHueco2);
-                    imprimir(plantas,plazasPorPlanta);
-                    return 1;
+                    printf("ENTRADA: Camion %d aparca en planta %d - plaza %d y plaza %d. Plazas libres en la planta: %d \n",id_vehiculo,i,j,j+1, plazas_libres);
+                    imprimirParking(plantas,plazas);
+                    return 1;       //Terminamos la ejecución puesto que ya tenemos el resultado de la operación.
                 }
             }
         }
@@ -147,44 +133,58 @@ int comprobarHueco(int tipo,int plantas,int plazasPorPlanta,int id){
     return -1;
 }
 
-//Funcion que saca un vehiculo del parking
-void salirParking(int plantas, int plazasPorPlanta, int id){
-    int tipo = 0;
-    for(int ii=0;ii<plantas;ii++){
-        for(int jj=0;jj<plazasPorPlanta;jj++){
-            if(parking[ii][jj]==id){
-                int plazasLibresHueco3=0;
-                if(parking[ii][jj] == parking[ii][jj+1]) {
-                    parking[ii][jj + 1] = 0;
-                    tipo=1;
+void vehiculoSale(int tipo_vehiculo, int id){
+    int plazas_libres = 0;
+    int planta,plaza;
+    if(tipo_vehiculo==0){
+        for (int i = 0; i < plantas; i++) {
+            for (int j = 0; j < plazas; j++) {
+                if(parking[i][j] == id){
+                    parking[i][j] = 0;
+                    planta = i;
+                    plaza = j;
                 }
-                parking[ii][jj] = 0;
-                for(int jj=0;jj<plazasPorPlanta;jj++){
-                    if(parking[ii][jj]==0){
-                        plazasLibresHueco3++;
+                for (int k = 0; k < plazas; k++) {
+                    if(parking[i][j] == 0){
+                        plazas_libres++;
                     }
                 }
 
-                if(tipo==1){//Si es un camion
-                    printf("El CAMION %d sale del parking. Plazas libres en la planta: %d\n",id, plazasLibresHueco3);
-                    imprimir(plantas,plazasPorPlanta);
-                }else{
-                    printf("El COCHE %d sale del parking. Plazas libres en la planta: %d\n",id, plazasLibresHueco3);
-                    imprimir(plantas,plazasPorPlanta);
-                }
             }
         }
+        printf("SALIDA: Coche %d en planta %d - plaza %d saliendo... Plazas libres en la planta: %d \n",id_vehiculo,planta,plaza, plazas_libres);
+        imprimirParking(plantas,plazas);
+
+    }else{
+        for (int i = 0; i < plantas; i++) {
+            for (int j = 0; j < plazas; j++) {
+                if(parking[i][j] == id && parking[i][j+1]==id){
+                    parking[i][j] = 0;
+                    parking[i][j+1] = 0;
+                    planta = i;
+                    plaza = j;
+                }
+                for (int k = 0; k < plazas; k++) {
+                    if(parking[i][j] == 0){
+                        plazas_libres++;
+                    }
+                }
+
+            }
+        }
+        printf("SALIDA: Camion %d en planta %d - plaza %d y plaza %d saliendo... Plazas libres en la planta: %d \n",id_vehiculo+100,planta,plaza,plaza+1, plazas_libres);
+        imprimirParking(plantas,plazas);
     }
+
 }
 
-//Funcion que imprime el parking
-void imprimir(int plantas, int plazasPorPlanta){
-    for(int ii=0;ii<plantas;ii++){
-        printf("Planta %d = ",ii);
-        for(int jj=0;jj<plazasPorPlanta;jj++){
-            printf("[%d] ", parking[ii][jj]);
+void imprimirParking(int plantas, int plazas){
+    printf("Parking:\n");
+    for(int i=0; i < plantas;i++){
+        printf("Planta %d:",i);
+        for(int j=0; j < plazas; j++){
+            printf("[%d]",parking[i][j]);
         }
         printf("\n");
     }
-    printf("\n");
 }
