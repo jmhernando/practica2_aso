@@ -4,16 +4,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 
 /*FUNCIONES*/
 
 void salir();
-int comprobar();
-
+int vehiculoEntra(int tipo_vehiculo,int id);
+void imprimirParking(int plantas, int plazas);
 
 /*VARIABLES*/
-
-int plazas, plantas;
+int parking[100][100];      //Creamos el array que simulará el parking, como máximo 100 plazas y 100 plantas.
+int plazas, plantas,id_vehiculo;
 
 int main(int argc, char **argv){
     int rank, size;
@@ -35,7 +36,6 @@ int main(int argc, char **argv){
 
     printf("Comando ejecutado correctamente. Generando simulación...\n");
 
-    int parking [plantas][plazas];      //Creamos el array que simulará el parking.
     for(int i=0;i<plantas;i++){
         for(int j=0;j<plazas;j++){
             parking[i][j]=0;
@@ -49,13 +49,81 @@ int main(int argc, char **argv){
     char accion_vehiculo[2][10];    //Este array servirá como mensaje en el que se analizará que tipo de vehiculo
     // y la acción que realiza (SALE, ENTRA)
 
-    while(1){
+    int aux; // Declarar la variable aux fuera del bucle while
 
+    while (1) {
+        MPI_Recv(&accion_vehiculo, 2 * 10, MPI_CHAR, MPI_ANY_SOURCE, 0, MPI_COMM_WORLD, &process_status);
+        id_vehiculo = process_status.MPI_SOURCE;
+
+        if (strcmp(accion_vehiculo[1], "COCHE") == 0 && strcmp(accion_vehiculo[0], "ENTRA") == 0) {
+            if (vehiculoEntra(0, id_vehiculo) == -1) {
+                aux = 0;
+                MPI_Send(&aux, 1, MPI_INT, id_vehiculo, 1, MPI_COMM_WORLD);  // Le decimos al coche que no hay sitio.
+                printf("No hay sitio en el parking. El vehiculo con id: %d espera.", id_vehiculo);
+            } else {
+                aux = 1;
+                MPI_Send(&aux, 1, MPI_INT, id_vehiculo, 1, MPI_COMM_WORLD);  // Le decimos al coche que hay sitio.
+            }
+        }
     }
-
-
-
-
 
 }
 
+int vehiculoEntra(int tipo_vehiculo, int id_vehiculo){
+    switch (tipo_vehiculo) {
+        case 1:
+            for(int i=0;i<plantas;i++){
+                for(int j=0;j<plazas;j++){
+                    if(parking[i][j]==0){
+                        parking[i][j] = id_vehiculo;
+                        int plazas_libres=0;
+
+                        for(int j=0;j<plazas;j++){
+                            if(parking[i][j]==0){
+                                plazas_libres++;
+                            }
+                        }
+                        printf("ENTRADA: Coche %d aparca en planta %d - plaza %d. Plazas libres en la planta: %d \n",id_vehiculo,i,j, plazas_libres);
+                        imprimirParking(plantas,plazas_libres);
+                        return 1;       //Terminamos la ejecución puesto que ya tenemos el resultado de la operación.
+                    }
+                }
+            }
+            break;
+        case 2:
+            for(int i=0;i<plantas;i++){
+                for(int j=0;j<plazas;j++){
+                    if(j+1<=plazas && parking[i][j]==0 && parking[i][j+1]==0){
+                        parking[i][j] = id_vehiculo+100;        //El enunciado requiere que un camión tenga el id +100
+                        parking[i][j+1] = id_vehiculo+100;
+                        int plazas_libres=0;
+
+                        for(int j=0;j<plazas;j++){
+                            if(parking[i][j]==0){
+                                plazas_libres++;
+                            }
+                        }
+                        printf("ENTRADA: Camion %d aparca en planta %d - plaza %d y plaza %d. Plazas libres en la planta: %d \n",id_vehiculo,i,j,j+1, plazas_libres);
+                        imprimirParking(plantas,plazas_libres);
+                        return 1;       //Terminamos la ejecución puesto que ya tenemos el resultado de la operación.
+                    }
+                }
+            }
+            break;
+        default :
+            printf("Ha ocurrido un error inesperado.");
+            return -1;
+    }
+    return -1;
+}
+
+void imprimirParking(int plantas, int plazas){
+    printf("Parking:\n");
+    for(int i=0; i < plantas;i++){
+        printf("Planta %d:",i);
+        for(int j=0; j < plazas; j++){
+            printf("[%d]",parking[i][j]);
+        }
+        printf("\n");
+    }
+}
