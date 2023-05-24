@@ -42,9 +42,10 @@ int main(int argc,char **argv){                 //Función principa.
             sleep(waiting); //Simulamos que se ha aparcado el automovil.
             //Enviamos la solicitud pero de salir del parking.
             MPI_Send(coche_sale, 2*10, MPI_CHAR, 0, 0, MPI_COMM_WORLD);
+            sleep(waiting);
         }
         else{
-            sleep(waiting); //Esperamos un tiempo para volver a preguntar.
+            sleep(waiting%3); //Esperamos un tiempo para volver a preguntar.
         }
     }
     MPI_Finalize();
