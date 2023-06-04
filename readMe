@@ -1,0 +1,70 @@
+Este documento será una breve guía de cómo ejecutar la aplicación del parking.
+
+Dentro de nuestra carpeta del proyecto encontramos varios archivos. Entre los cuales encontramos:
+
+	->Parking.c
+	->Coche.c
+	->Camion.c
+
+Estos son los archivos que contienen el código de nuestra aplicación. Para ser compilados ejecutaremos
+sobre cada uno de ellos el siguiente comando:
+	
+	mpicc nombreArchivo.c -o nombreArchivo
+
+Pasando como primer parámetro el archivo que queremos compilar y como segundo parámetro el resultado del 
+archivo compilado. Podemos ponerle cualquier nombre pero resulta mas intuitivo ponerle un nombre similar o 
+igual al nombre de nuestro archivo inicial.
+Así pues se han ejecutado los siguientes comandos:
+
+	mpicc Parking.c -o parking
+	mpicc Coche.c -o coche
+	mpicc Camion.c -o camion 
+
+Una vez que hemos compilado nuestro código y hemos visto que no tiene errores podemos ejecutarlo.
+Gracias al comando proporcionado sabemos que su estructura es de la siguiente manera:
+
+	mpirun -np 1 main 10 2 : -np 10 coche : -np 4 camion
+
+En la que ejecutaremos un proceso de "main" (nuestro archivo parking), 10 procesos de coche y 4 camiones.
+Que viene a signficar en nuestra práctica que tenemos 10 coches 4 camiones y un solo parking.
+Cuando ejecutamos por primera vez nuestro código nos salió un mensaje en el cual no era posible ejecutar
+tantos procesos puesto que cada proceso se ejecuta en un núcleo diferente del procesador. Como estamos
+ejecutando este comando en una máquina virtual con 6 núcleos no podíamos ejecutar mas de 6 procesos. 
+Por lo tanto podríamos ejecutar un código similar al siguiente adaptándolo a nuestras necesidades:
+
+	mpirun -np 1 parkin 10 2 : -np 3 coche : -np 2 camion
+
+Nótese que se ha cambiado la nomenclatura de "main" a "parking" que es el nombre que le hemos dado a nuestro
+main.
+
+También encontramos una manera de ejecutar mas procesos que núcleos tenemos en nuestro sistema
+creando un archivo hostfile con el nombre "hostfile" y en el que indicamos un número de núcleos suficientes:
+
+	localhost slots=25
+
+poniendo el archivo hostfile por delante de nuestra línea de comando ya se podrían ejecutar mas procesos.
+La línea de ejecución quedaría de la siguiente manera: 
+
+	mpirun --hostfile hostfile -np 1 main 10 2 : -np 10 coche : -np 4 camion
+
+En el siguiente apartado "EJECUCIÓN" no se ha incluido esta manera de ejecutarlo puesto que hemos considerado 
+que es una manera de "falsear" la realidad. 
+
+################################################
+		EJECUCIÓN
+################################################
+
+Para ejecutar solo coches "coche" se debe ejecutar el siguiente comando. (El número de procesos puede variar)
+
+	mpirun -np 1 parking 4 2 : -np 5 coche
+
+Para ejecutar solo camiones "camion"
+	
+	mpirun -np 1 parking 4 2 : -np 4 camion
+
+Para ejecutar todo completo:
+
+	mpirun -np 1 parking 6 3 : -np 3 coche : -np 2 camion
+
+Para ver como funciona el parking una vez lleno hemos dejado un archivo adjunto para que se vea
+el resultado de la ejecución.

@@ -1,0 +1,352 @@
+Comando ejecutado correctamente. Generando simulación...
+Se ha creado el parking.
+ENTRADA: Coche 1 aparca en planta 0 - plaza 0. Plazas libres en la planta: 1 
+Parking:
+Planta 0:[1][0]
+Planta 1:[0][0]
+Planta 2:[0][0]
+ENTRADA: Camion 105 aparca en planta 1 - plaza 0 y plaza 1. Plazas libres en la planta: 0 
+Parking:
+Planta 0:[1][0]
+Planta 1:[105][105]
+Planta 2:[0][0]
+ENTRADA: Coche 2 aparca en planta 0 - plaza 1. Plazas libres en la planta: 0 
+Parking:
+Planta 0:[1][2]
+Planta 1:[105][105]
+Planta 2:[0][0]
+ENTRADA: Coche 3 aparca en planta 2 - plaza 0. Plazas libres en la planta: 1 
+Parking:
+Planta 0:[1][2]
+Planta 1:[105][105]
+Planta 2:[3][0]
+No hay sitio en el parking. El vehiculo con id: 104 espera.SALIDA: Coche 3 en planta 2 - plaza 0 saliendo... Plazas libres en la planta: 4 
+Parking:
+Planta 0:[1][2]
+Planta 1:[105][105]
+Planta 2:[0][0]
+SALIDA: Camion 105 en planta 1 - plaza 0 y plaza 1 saliendo... Plazas libres en la planta: 8 
+Parking:
+Planta 0:[1][2]
+Planta 1:[0][0]
+Planta 2:[0][0]
+SALIDA: Coche 1 en planta 0 - plaza 0 saliendo... Plazas libres en la planta: 10 
+Parking:
+Planta 0:[0][2]
+Planta 1:[0][0]
+Planta 2:[0][0]
+ENTRADA: Camion 104 aparca en planta 1 - plaza 0 y plaza 1. Plazas libres en la planta: 0 
+Parking:
+Planta 0:[0][2]
+Planta 1:[104][104]
+Planta 2:[0][0]
+SALIDA: Coche 2 en planta 0 - plaza 1 saliendo... Plazas libres en la planta: 8 
+Parking:
+Planta 0:[0][0]
+Planta 1:[104][104]
+Planta 2:[0][0]
+ENTRADA: Coche 3 aparca en planta 0 - plaza 0. Plazas libres en la planta: 1 
+Parking:
+Planta 0:[3][0]
+Planta 1:[104][104]
+Planta 2:[0][0]
+ENTRADA: Camion 105 aparca en planta 2 - plaza 0 y plaza 1. Plazas libres en la planta: 0 
+Parking:
+Planta 0:[3][0]
+Planta 1:[104][104]
+Planta 2:[105][105]
+ENTRADA: Coche 1 aparca en planta 0 - plaza 1. Plazas libres en la planta: 0 
+Parking:
+Planta 0:[3][1]
+Planta 1:[104][104]
+Planta 2:[105][105]
+No hay sitio en el parking. El vehiculo con id: 2 espera.No hay sitio en el parking. El vehiculo con id: 2 espera.No hay sitio en el parking. El vehiculo con id: 2 espera.No hay sitio en el parking. El vehiculo con id: 2 espera.SALIDA: Camion 104 en planta 1 - plaza 0 y plaza 1 saliendo... Plazas libres en la planta: 4 
+Parking:
+Planta 0:[3][1]
+Planta 1:[0][0]
+Planta 2:[105][105]
+SALIDA: Coche 3 en planta 0 - plaza 0 saliendo... Plazas libres en la planta: 6 
+Parking:
+Planta 0:[0][1]
+Planta 1:[0][0]
+Planta 2:[105][105]
+SALIDA: Coche 1 en planta 0 - plaza 1 saliendo... Plazas libres en la planta: 8 
+Parking:
+Planta 0:[0][0]
+Planta 1:[0][0]
+Planta 2:[105][105]
+SALIDA: Camion 105 en planta 2 - plaza 0 y plaza 1 saliendo... Plazas libres en la planta: 12 
+Parking:
+Planta 0:[0][0]
+Planta 1:[0][0]
+Planta 2:[0][0]
+ENTRADA: Coche 2 aparca en planta 0 - plaza 0. Plazas libres en la planta: 1 
+Parking:
+Planta 0:[2][0]
+Planta 1:[0][0]
+Planta 2:[0][0]
+SALIDA: Coche 2 en planta 0 - plaza 0 saliendo... Plazas libres en la planta: 12 
+Parking:
+Planta 0:[0][0]
+Planta 1:[0][0]
+Planta 2:[0][0]
+ENTRADA: Coche 2 aparca en planta 0 - plaza 0. Plazas libres en la planta: 1 
+Parking:
+Planta 0:[2][0]
+Planta 1:[0][0]
+Planta 2:[0][0]
+ENTRADA: Camion 104 aparca en planta 1 - plaza 0 y plaza 1. Plazas libres en la planta: 0 
+Parking:
+Planta 0:[2][0]
+Planta 1:[104][104]
+Planta 2:[0][0]
+ENTRADA: Coche 3 aparca en planta 0 - plaza 1. Plazas libres en la planta: 0 
+Parking:
+Planta 0:[2][3]
+Planta 1:[104][104]
+Planta 2:[0][0]
+ENTRADA: Coche 1 aparca en planta 2 - plaza 0. Plazas libres en la planta: 1 
+Parking:
+Planta 0:[2][3]
+Planta 1:[104][104]
+Planta 2:[1][0]
+No hay sitio en el parking. El vehiculo con id: 105 espera.No hay sitio en el parking. El vehiculo con id: 105 espera.No hay sitio en el parking. El vehiculo con id: 105 espera.SALIDA: Camion 104 en planta 1 - plaza 0 y plaza 1 saliendo... Plazas libres en la planta: 6 
+Parking:
+Planta 0:[2][3]
+Planta 1:[0][0]
+Planta 2:[1][0]
+SALIDA: Coche 2 en planta 0 - plaza 0 saliendo... Plazas libres en la planta: 8 
+Parking:
+Planta 0:[0][3]
+Planta 1:[0][0]
+Planta 2:[1][0]
+SALIDA: Coche 3 en planta 0 - plaza 1 saliendo... Plazas libres en la planta: 10 
+Parking:
+Planta 0:[0][0]
+Planta 1:[0][0]
+Planta 2:[1][0]
+SALIDA: Coche 1 en planta 2 - plaza 0 saliendo... Plazas libres en la planta: 12 
+Parking:
+Planta 0:[0][0]
+Planta 1:[0][0]
+Planta 2:[0][0]
+ENTRADA: Camion 105 aparca en planta 0 - plaza 0 y plaza 1. Plazas libres en la planta: 0 
+Parking:
+Planta 0:[105][105]
+Planta 1:[0][0]
+Planta 2:[0][0]
+SALIDA: Camion 105 en planta 0 - plaza 0 y plaza 1 saliendo... Plazas libres en la planta: 12 
+Parking:
+Planta 0:[0][0]
+Planta 1:[0][0]
+Planta 2:[0][0]
+ENTRADA: Camion 104 aparca en planta 0 - plaza 0 y plaza 1. Plazas libres en la planta: 0 
+Parking:
+Planta 0:[104][104]
+Planta 1:[0][0]
+Planta 2:[0][0]
+ENTRADA: Camion 105 aparca en planta 1 - plaza 0 y plaza 1. Plazas libres en la planta: 0 
+Parking:
+Planta 0:[104][104]
+Planta 1:[105][105]
+Planta 2:[0][0]
+ENTRADA: Coche 3 aparca en planta 2 - plaza 0. Plazas libres en la planta: 1 
+Parking:
+Planta 0:[104][104]
+Planta 1:[105][105]
+Planta 2:[3][0]
+SALIDA: Camion 104 en planta 0 - plaza 0 y plaza 1 saliendo... Plazas libres en la planta: 6 
+Parking:
+Planta 0:[0][0]
+Planta 1:[105][105]
+Planta 2:[3][0]
+ENTRADA: Coche 1 aparca en planta 0 - plaza 0. Plazas libres en la planta: 1 
+Parking:
+Planta 0:[1][0]
+Planta 1:[105][105]
+Planta 2:[3][0]
+ENTRADA: Coche 2 aparca en planta 0 - plaza 1. Plazas libres en la planta: 0 
+Parking:
+Planta 0:[1][2]
+Planta 1:[105][105]
+Planta 2:[3][0]
+SALIDA: Coche 2 en planta 0 - plaza 1 saliendo... Plazas libres en la planta: 4 
+Parking:
+Planta 0:[1][0]
+Planta 1:[105][105]
+Planta 2:[3][0]
+ENTRADA: Coche 2 aparca en planta 0 - plaza 1. Plazas libres en la planta: 0 
+Parking:
+Planta 0:[1][2]
+Planta 1:[105][105]
+Planta 2:[3][0]
+SALIDA: Coche 3 en planta 2 - plaza 0 saliendo... Plazas libres en la planta: 4 
+Parking:
+Planta 0:[1][2]
+Planta 1:[105][105]
+Planta 2:[0][0]
+SALIDA: Coche 1 en planta 0 - plaza 0 saliendo... Plazas libres en la planta: 6 
+Parking:
+Planta 0:[0][2]
+Planta 1:[105][105]
+Planta 2:[0][0]
+ENTRADA: Camion 104 aparca en planta 2 - plaza 0 y plaza 1. Plazas libres en la planta: 0 
+Parking:
+Planta 0:[0][2]
+Planta 1:[105][105]
+Planta 2:[104][104]
+ENTRADA: Coche 3 aparca en planta 0 - plaza 0. Plazas libres en la planta: 0 
+Parking:
+Planta 0:[3][2]
+Planta 1:[105][105]
+Planta 2:[104][104]
+No hay sitio en el parking. El vehiculo con id: 1 espera.SALIDA: Camion 105 en planta 1 - plaza 0 y plaza 1 saliendo... Plazas libres en la planta: 4 
+Parking:
+Planta 0:[3][2]
+Planta 1:[0][0]
+Planta 2:[104][104]
+SALIDA: Coche 2 en planta 0 - plaza 1 saliendo... Plazas libres en la planta: 6 
+Parking:
+Planta 0:[3][0]
+Planta 1:[0][0]
+Planta 2:[104][104]
+ENTRADA: Coche 1 aparca en planta 0 - plaza 1. Plazas libres en la planta: 0 
+Parking:
+Planta 0:[3][1]
+Planta 1:[0][0]
+Planta 2:[104][104]
+SALIDA: Coche 1 en planta 0 - plaza 1 saliendo... Plazas libres en la planta: 6 
+Parking:
+Planta 0:[3][0]
+Planta 1:[0][0]
+Planta 2:[104][104]
+SALIDA: Camion 104 en planta 2 - plaza 0 y plaza 1 saliendo... Plazas libres en la planta: 10 
+Parking:
+Planta 0:[3][0]
+Planta 1:[0][0]
+Planta 2:[0][0]
+ENTRADA: Coche 1 aparca en planta 0 - plaza 1. Plazas libres en la planta: 0 
+Parking:
+Planta 0:[3][1]
+Planta 1:[0][0]
+Planta 2:[0][0]
+ENTRADA: Coche 2 aparca en planta 1 - plaza 0. Plazas libres en la planta: 1 
+Parking:
+Planta 0:[3][1]
+Planta 1:[2][0]
+Planta 2:[0][0]
+SALIDA: Coche 3 en planta 0 - plaza 0 saliendo... Plazas libres en la planta: 8 
+Parking:
+Planta 0:[0][1]
+Planta 1:[2][0]
+Planta 2:[0][0]
+ENTRADA: Camion 105 aparca en planta 2 - plaza 0 y plaza 1. Plazas libres en la planta: 0 
+Parking:
+Planta 0:[0][1]
+Planta 1:[2][0]
+Planta 2:[105][105]
+SALIDA: Camion 105 en planta 2 - plaza 0 y plaza 1 saliendo... Plazas libres en la planta: 8 
+Parking:
+Planta 0:[0][1]
+Planta 1:[2][0]
+Planta 2:[0][0]
+ENTRADA: Camion 105 aparca en planta 2 - plaza 0 y plaza 1. Plazas libres en la planta: 0 
+Parking:
+Planta 0:[0][1]
+Planta 1:[2][0]
+Planta 2:[105][105]
+SALIDA: Coche 2 en planta 1 - plaza 0 saliendo... Plazas libres en la planta: 6 
+Parking:
+Planta 0:[0][1]
+Planta 1:[0][0]
+Planta 2:[105][105]
+ENTRADA: Coche 2 aparca en planta 0 - plaza 0. Plazas libres en la planta: 0 
+Parking:
+Planta 0:[2][1]
+Planta 1:[0][0]
+Planta 2:[105][105]
+SALIDA: Coche 1 en planta 0 - plaza 1 saliendo... Plazas libres en la planta: 6 
+Parking:
+Planta 0:[2][0]
+Planta 1:[0][0]
+Planta 2:[105][105]
+SALIDA: Camion 105 en planta 2 - plaza 0 y plaza 1 saliendo... Plazas libres en la planta: 10 
+Parking:
+Planta 0:[2][0]
+Planta 1:[0][0]
+Planta 2:[0][0]
+SALIDA: Coche 2 en planta 0 - plaza 0 saliendo... Plazas libres en la planta: 12 
+Parking:
+Planta 0:[0][0]
+Planta 1:[0][0]
+Planta 2:[0][0]
+ENTRADA: Camion 104 aparca en planta 0 - plaza 0 y plaza 1. Plazas libres en la planta: 0 
+Parking:
+Planta 0:[104][104]
+Planta 1:[0][0]
+Planta 2:[0][0]
+ENTRADA: Coche 3 aparca en planta 1 - plaza 0. Plazas libres en la planta: 1 
+Parking:
+Planta 0:[104][104]
+Planta 1:[3][0]
+Planta 2:[0][0]
+SALIDA: Camion 104 en planta 0 - plaza 0 y plaza 1 saliendo... Plazas libres en la planta: 10 
+Parking:
+Planta 0:[0][0]
+Planta 1:[3][0]
+Planta 2:[0][0]
+ENTRADA: Coche 2 aparca en planta 0 - plaza 0. Plazas libres en la planta: 1 
+Parking:
+Planta 0:[2][0]
+Planta 1:[3][0]
+Planta 2:[0][0]
+SALIDA: Coche 3 en planta 1 - plaza 0 saliendo... Plazas libres en la planta: 10 
+Parking:
+Planta 0:[2][0]
+Planta 1:[0][0]
+Planta 2:[0][0]
+ENTRADA: Camion 104 aparca en planta 1 - plaza 0 y plaza 1. Plazas libres en la planta: 0 
+Parking:
+Planta 0:[2][0]
+Planta 1:[104][104]
+Planta 2:[0][0]
+ENTRADA: Camion 105 aparca en planta 2 - plaza 0 y plaza 1. Plazas libres en la planta: 0 
+Parking:
+Planta 0:[2][0]
+Planta 1:[104][104]
+Planta 2:[105][105]
+SALIDA: Coche 2 en planta 0 - plaza 0 saliendo... Plazas libres en la planta: 4 
+Parking:
+Planta 0:[0][0]
+Planta 1:[104][104]
+Planta 2:[105][105]
+ENTRADA: Coche 3 aparca en planta 0 - plaza 0. Plazas libres en la planta: 1 
+Parking:
+Planta 0:[3][0]
+Planta 1:[104][104]
+Planta 2:[105][105]
+ENTRADA: Coche 1 aparca en planta 0 - plaza 1. Plazas libres en la planta: 0 
+Parking:
+Planta 0:[3][1]
+Planta 1:[104][104]
+Planta 2:[105][105]
+SALIDA: Coche 1 en planta 0 - plaza 1 saliendo... Plazas libres en la planta: 2 
+Parking:
+Planta 0:[3][0]
+Planta 1:[104][104]
+Planta 2:[105][105]
+ENTRADA: Coche 1 aparca en planta 0 - plaza 1. Plazas libres en la planta: 0 
+Parking:
+Planta 0:[3][1]
+Planta 1:[104][104]
+Planta 2:[105][105]
+SALIDA: Camion 105 en planta 2 - plaza 0 y plaza 1 saliendo... Plazas libres en la planta: 4 
+Parking:
+Planta 0:[3][1]
+Planta 1:[104][104]
+Planta 2:[0][0]
+ENTRADA: Coche 2 aparca en planta 2 - plaza 0. Plazas libres en la planta: 1 
+Parking:
+Planta 0:[3][1]
+Planta 1:[104][104]
+Planta 2:[2][0]

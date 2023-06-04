@@ -52,7 +52,7 @@ int main(int argc, char **argv){
     int aux;
 
     while (1) {
-        MPI_Recv(&accion_vehiculo, 2 * 10, MPI_CHAR, MPI_ANY_SOURCE, 0, MPI_COMM_WORLD, &process_status);
+        MPI_Recv(&accion_vehiculo, 2 * 10, MPI_CHAR, MPI_ANY_SOURCE, 0, MPI_COMM_WORLD, &process_status);   //Recibe el array por el cual sabemos si es un coche o un camion. También vemos otros parámetros como el tipo de dato que es. En nuestro caso CHAR.
         id_vehiculo = process_status.MPI_SOURCE;
 
         if (strcmp(accion_vehiculo[1], "COCHE") == 0 ){         //Si lo que envia es la palabra COCHE nuestro vehículo es un coche
