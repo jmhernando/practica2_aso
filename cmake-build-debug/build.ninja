@@ -49,12 +49,6 @@ cmake_ninja_workdir = /home/jose/Escritorio/Universidad/ASO/practica2_mpi/cmake-
 
 build cmake_object_order_depends_target_practica2_mpi: phony || CMakeFiles/practica2_mpi.dir
 
-build CMakeFiles/practica2_mpi.dir/main.c.o: C_COMPILER__practica2_mpi_Debug /home/jose/Escritorio/Universidad/ASO/practica2_mpi/main.c || cmake_object_order_depends_target_practica2_mpi
-  DEP_FILE = CMakeFiles/practica2_mpi.dir/main.c.o.d
-  FLAGS = -g -fdiagnostics-color=always -std=gnu11
-  OBJECT_DIR = CMakeFiles/practica2_mpi.dir
-  OBJECT_FILE_DIR = CMakeFiles/practica2_mpi.dir
-
 build CMakeFiles/practica2_mpi.dir/Coche.c.o: C_COMPILER__practica2_mpi_Debug /home/jose/Escritorio/Universidad/ASO/practica2_mpi/Coche.c || cmake_object_order_depends_target_practica2_mpi
   DEP_FILE = CMakeFiles/practica2_mpi.dir/Coche.c.o.d
   FLAGS = -g -fdiagnostics-color=always -std=gnu11
@@ -73,24 +67,6 @@ build CMakeFiles/practica2_mpi.dir/Camion.c.o: C_COMPILER__practica2_mpi_Debug /
   OBJECT_DIR = CMakeFiles/practica2_mpi.dir
   OBJECT_FILE_DIR = CMakeFiles/practica2_mpi.dir
 
-build CMakeFiles/practica2_mpi.dir/CocheBueno.c.o: C_COMPILER__practica2_mpi_Debug /home/jose/Escritorio/Universidad/ASO/practica2_mpi/CocheBueno.c || cmake_object_order_depends_target_practica2_mpi
-  DEP_FILE = CMakeFiles/practica2_mpi.dir/CocheBueno.c.o.d
-  FLAGS = -g -fdiagnostics-color=always -std=gnu11
-  OBJECT_DIR = CMakeFiles/practica2_mpi.dir
-  OBJECT_FILE_DIR = CMakeFiles/practica2_mpi.dir
-
-build CMakeFiles/practica2_mpi.dir/CamionBueno.c.o: C_COMPILER__practica2_mpi_Debug /home/jose/Escritorio/Universidad/ASO/practica2_mpi/CamionBueno.c || cmake_object_order_depends_target_practica2_mpi
-  DEP_FILE = CMakeFiles/practica2_mpi.dir/CamionBueno.c.o.d
-  FLAGS = -g -fdiagnostics-color=always -std=gnu11
-  OBJECT_DIR = CMakeFiles/practica2_mpi.dir
-  OBJECT_FILE_DIR = CMakeFiles/practica2_mpi.dir
-
-build CMakeFiles/practica2_mpi.dir/ParkingBueno.c.o: C_COMPILER__practica2_mpi_Debug /home/jose/Escritorio/Universidad/ASO/practica2_mpi/ParkingBueno.c || cmake_object_order_depends_target_practica2_mpi
-  DEP_FILE = CMakeFiles/practica2_mpi.dir/ParkingBueno.c.o.d
-  FLAGS = -g -fdiagnostics-color=always -std=gnu11
-  OBJECT_DIR = CMakeFiles/practica2_mpi.dir
-  OBJECT_FILE_DIR = CMakeFiles/practica2_mpi.dir
-
 
 # =============================================================================
 # Link build statements for EXECUTABLE target practica2_mpi
@@ -99,7 +75,7 @@ build CMakeFiles/practica2_mpi.dir/ParkingBueno.c.o: C_COMPILER__practica2_mpi_D
 #############################################
 # Link the executable practica2_mpi
 
-build practica2_mpi: C_EXECUTABLE_LINKER__practica2_mpi_Debug CMakeFiles/practica2_mpi.dir/main.c.o CMakeFiles/practica2_mpi.dir/Coche.c.o CMakeFiles/practica2_mpi.dir/Parking.c.o CMakeFiles/practica2_mpi.dir/Camion.c.o CMakeFiles/practica2_mpi.dir/CocheBueno.c.o CMakeFiles/practica2_mpi.dir/CamionBueno.c.o CMakeFiles/practica2_mpi.dir/ParkingBueno.c.o
+build practica2_mpi: C_EXECUTABLE_LINKER__practica2_mpi_Debug CMakeFiles/practica2_mpi.dir/Coche.c.o CMakeFiles/practica2_mpi.dir/Parking.c.o CMakeFiles/practica2_mpi.dir/Camion.c.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/practica2_mpi.dir
   POST_BUILD = :
